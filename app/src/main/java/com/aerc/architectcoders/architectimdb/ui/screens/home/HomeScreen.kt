@@ -1,7 +1,6 @@
 package com.aerc.architectcoders.architectimdb.ui.screens.home
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
@@ -16,15 +15,19 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.aerc.architectcoders.architectimdb.R
+import com.aerc.architectcoders.architectimdb.data.models.Movie
 import com.aerc.architectcoders.architectimdb.data.models.movies
 import com.aerc.architectcoders.architectimdb.ui.screens.home.components.MovieItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    onClick: (Movie) -> Unit
+) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     Scaffold(
@@ -46,7 +49,10 @@ fun HomeScreen() {
         ) {
 
             items(movies) { movie ->
-                MovieItem(movie = movie)
+                MovieItem(
+                    movie = movie,
+                    onClick = { onClick(movie) }
+                )
             }
 
         }

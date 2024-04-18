@@ -1,5 +1,7 @@
 package com.aerc.architectcoders.architectimdb.ui.screens.home.components
 
+
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,9 +17,12 @@ import com.aerc.architectcoders.architectimdb.data.models.Movie
 
 @Composable
 fun MovieItem(
-    movie: Movie
+    movie: Movie,
+    onClick: () -> Unit
 ) {
-    Column {
+    Column(
+        modifier = Modifier.clickable(onClick = onClick)
+    ) {
         AsyncImage(
             modifier = Modifier
                 .fillMaxWidth()
