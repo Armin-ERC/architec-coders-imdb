@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ArchitectImdb</string>
+    <string name="home_title">Movies</string>
+    <string name="navigation_back">Back</string>
 </resources>
