@@ -11,5 +11,5 @@ interface MoviesService {
     suspend fun fetchPopularMovies(@Query("region") region: String): RemoteResult
 
     @GET("movie/{id}")
-    suspend fun fetchMovieById(@Path("id") movieId: String): RemoteMovie
+    suspend fun fetchMovieById(@Path("id") movieId: Int): RemoteMovie
 }

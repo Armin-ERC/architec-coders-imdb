@@ -10,8 +10,6 @@ data class RemoteMovie(
     val adult: Boolean,
     @SerialName("backdrop_path")
     val backdropPath: String,
-    @SerialName("genre_ids")
-    val genreIds: List<Int>,
     @SerialName("id")
     val id: Int,
     @SerialName("original_language")
@@ -40,5 +38,6 @@ fun RemoteMovie.toDomainModel(): Movie =
     Movie(
         id = id,
         title = title,
-        poster = "https://image.tmdb.org/t/p/w185/$posterPath"
+        poster = "https://image.tmdb.org/t/p/w185/$posterPath",
+        overview = overview
     )

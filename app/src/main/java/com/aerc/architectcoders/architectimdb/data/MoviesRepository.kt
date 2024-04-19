@@ -12,4 +12,10 @@ class MoviesRepository {
             .map {
                 it.toDomainModel()
             }
+
+    suspend fun findMovieById(movieId: Int): Movie =
+        MoviesClient
+            .instance
+            .fetchMovieById(movieId)
+            .toDomainModel()
 }
