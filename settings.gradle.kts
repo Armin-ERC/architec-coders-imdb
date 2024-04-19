@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ArchitectImdb"
+rootProject.name = "ArchitectTmdb"
 include(":app")

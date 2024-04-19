@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.aerc.architectcoders.architectimdb"
+    namespace = "com.aerc.architectcoders.architecttmdb"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.aerc.architectcoders.architectimdb"
+        applicationId = "com.aerc.architectcoders.architecttmdb"
         minSdk = 27
         targetSdk = 34
         versionCode = 1
