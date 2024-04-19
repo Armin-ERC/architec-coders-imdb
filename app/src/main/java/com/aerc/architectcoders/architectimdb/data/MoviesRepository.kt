@@ -1,16 +1,15 @@
 package com.aerc.architectcoders.architectimdb.data
 
 import com.aerc.architectcoders.architectimdb.data.models.Movie
-import com.aerc.architectcoders.architectimdb.data.models.movies
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
+import com.aerc.architectcoders.architectimdb.data.models.toDomainModel
 
 class MoviesRepository {
-
-    suspend fun fetchPopularMovies() : List<Movie> = withContext(Dispatchers.IO){
-        delay(2000)
-        movies
-    }
-
+    suspend fun fetchPopularMovies(region: String): List<Movie> =
+        MoviesClient
+            .instance
+            .fetchPopularMovies(region)
+            .results
+            .map {
+                it.toDomainModel()
+            }
 }

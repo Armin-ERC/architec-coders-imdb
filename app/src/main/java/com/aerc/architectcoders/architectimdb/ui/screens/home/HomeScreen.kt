@@ -17,11 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -43,27 +39,15 @@ fun HomeScreen(
     onMovieClick: (Movie) -> Unit
 ) {
 
-    val context = LocalContext.current
-    val homeTitle = stringResource(id = R.string.home_title)
-    var appBarTitle by remember {
-        mutableStateOf(homeTitle)
-    }
-
     val state = vm.state
-
+    val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 
     PermissionRequestEffect(permission = Manifest.permission.ACCESS_COARSE_LOCATION) { granted ->
-        if (granted) {
-            coroutineScope.launch {
-                val region = context.getRegion()
-                appBarTitle = "$homeTitle ($region)"
-            }
-        } else {
-            appBarTitle = "$homeTitle (Location Permission Denied)"
+        coroutineScope.launch {
+            val region = if (granted) context.getRegion() else "US"
+            vm.onUiReady(region)
         }
-
-        vm.onUiReady()
     }
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -73,25 +57,25 @@ fun HomeScreen(
         contentWindowInsets = WindowInsets.safeDrawing,
         topBar = {
             TopAppBar(
-                title = { Text(text = appBarTitle) },
+                title = { Text(text = stringResource(id = R.string.home_title)) },
                 scrollBehavior = scrollBehavior
             )
         },
     ) { padding ->
 
-        if (state.loading) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding),
-                contentAlignment = Alignment.Center
-            ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding),
+            contentAlignment = Alignment.Center
+        ) {
+            if (state.loading) {
                 CircularProgressIndicator()
             }
-        } else {
+
             LazyVerticalGrid(
                 modifier = Modifier
-                    .padding(padding),
+                    .padding(horizontal = 4.dp),
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp),
                 columns = GridCells.Adaptive(90.dp),
@@ -103,6 +87,7 @@ fun HomeScreen(
                     )
                 }
             }
+
         }
     }
 

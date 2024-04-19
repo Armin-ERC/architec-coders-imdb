@@ -35,3 +35,10 @@ data class RemoteMovie(
     @SerialName("vote_count")
     val voteCount: Int
 )
+
+fun RemoteMovie.toDomainModel(): Movie =
+    Movie(
+        id = id,
+        title = title,
+        poster = "https://image.tmdb.org/t/p/w185/$posterPath"
+    )

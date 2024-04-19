@@ -16,12 +16,12 @@ class HomeViewModel : ViewModel() {
 
     private val repository = MoviesRepository()
 
-    fun onUiReady() {
+    fun onUiReady(region: String) {
         viewModelScope.launch {
             state = UiState(loading = true)
             state = UiState(
                 loading = false,
-                movies = repository.fetchPopularMovies()
+                movies = repository.fetchPopularMovies(region)
             )
         }
     }
