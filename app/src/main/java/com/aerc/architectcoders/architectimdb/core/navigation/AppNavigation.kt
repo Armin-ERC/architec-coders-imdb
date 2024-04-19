@@ -18,7 +18,7 @@ fun AppNavigation() {
     NavHost(navController = navController, startDestination = Screens.Home.route) {
         composable(Screens.Home.route) {
             HomeScreen(
-                onClick = { movie ->
+                onMovieClick = { movie ->
                     navController.navigate(Screens.Detail.createRoute(movie.id))
                 }
             )
